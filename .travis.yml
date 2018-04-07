@@ -9,4 +9,4 @@ script:
 deploy:
   provider: heroku
   app: protected-island-55435
-  api_key: $(HEROKU_API_KEY)
+  api_key: ${HEROKU_API_KEY}
