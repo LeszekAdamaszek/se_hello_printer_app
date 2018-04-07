@@ -30,7 +30,7 @@ docker_run: docker_build
 docker_stop:
 			docker stop $(SERVICE_NAME)-dev
 
-USERNAME=irminakwiecien
+USERNAME=leszekadamaszek
 TAG=$(USERNAME)/$(MY_DOCKER_NAME)
 
 docker_push: docker_build
