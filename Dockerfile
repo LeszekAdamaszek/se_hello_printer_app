@@ -1,4 +1,4 @@
-ROM python:2.7
+FROM python:2.7
 
 ARG APP_DIR=/usr/src//hello-world-printer
 
