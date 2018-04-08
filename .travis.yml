@@ -1,11 +1,15 @@
 language: python
+services:
+  - docker
 python:
   - "2.7"
 install:
   - make deps
 script:
-  - make test
+  - make test_unit
   - make lint
+  - make docker_build
+  - make docker_push
 deploy:
   provider: heroku
   app: protected-island-55435
