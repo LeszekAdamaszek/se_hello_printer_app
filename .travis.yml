@@ -6,7 +6,7 @@ python:
 install:
   - make deps
 script:
-  - make test_unit
+  - make test_xunit
   - make lint
   - make docker_build
   - make docker_push
