@@ -30,6 +30,18 @@ o Continuous Integration, Continuous Delivery i Continuous Deployment.
     PYTHONPATH=. py.test
     PYTHONPATH=. py.test  --verbose -s
 
+
+- Uruchamianie testów z coverage:
+
+  PYTHONPATH=. py.test --verbose -s --cov=.
+
+Smoke test:
+
+  curl --fail 127.0.0.1:5000
+  curl -s -o /dev/null -w "%{http_code}" --fail 127.0.0.1:5000
+
+
+
 - Kontynuując pracę z projektem, aktywowanie hermetycznego środowiska dla aplikacji py:
 
   ::
@@ -40,9 +52,40 @@ o Continuous Integration, Continuous Delivery i Continuous Deployment.
 
 - Integracja z TravisCI:
 
-  ::
+    docker_build:
+    docker build -t $(MY_DOCKER_NAME) .
 
-    ...
+    docker_run: docker_build
+      docker run \
+      --name $(SERVICE_NAME)-dev \
+      -p 5000:5000 \
+      -d $(MY_DOCKER_NAME)
+
+      docker_stop:
+      docker stop $(SERVICE_NAME)-dev
+
+    USERNAME=LeszekAdamaszek
+    TAG=$(USERNAME)/$(MY_DOCKER_NAME)
+
+    docker_push: docker_build
+    @docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
+    docker tag $(MY_DOCKER_NAME) $(TAG); \
+    docker tag $(MY_DOCKER_NAME) $(TAG):$$(cat VERSION); \
+    docker push $(TAG); \
+    docker logout;
+
+W TravisCI dodajemy zmienną o nazwie: DOCKER_PASSWORD, gdzie podajemy nasze hasło do dockera
+
+Odpalanie komend z pliku Makefile:
+
+  make deps # Sprawdź co robi komenda w pliku Makefile
+  make lint
+  make test
+  make run
+  make docker_build
+  make docker_run
+  make docker_stop
+  make docker_push
 
 
 Pomocnicze
