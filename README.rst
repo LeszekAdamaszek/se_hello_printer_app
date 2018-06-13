@@ -25,7 +25,10 @@ o Continuous Integration, Continuous Delivery i Continuous Deployment.
 
 - Uruchamianie testów (see: http://doc.pytest.org/en/latest/capture.html):
 
+  ::
 
+    PYTHONPATH=. py.test
+    PYTHONPATH=. py.test  --verbose -s
 
 - Kontynuując pracę z projektem, aktywowanie hermetycznego środowiska dla aplikacji py:
 
@@ -36,6 +39,10 @@ o Continuous Integration, Continuous Delivery i Continuous Deployment.
 
 
 - Integracja z TravisCI:
+
+  ::
+
+    ...
 
 
 Pomocnicze
